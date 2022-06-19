@@ -37,7 +37,7 @@ def heart(offset, color, size):
 @ti.func
 def flower8(offset, color, size, num, f1_exp, f1_size):
     scale = 1.01/size
-    for ijk in ti.grouped(ti.ndrange((-size, size), (-size, size))):
+    for ijk in ti.grouped(ti.ndrange((-size, size), (-size, size), (-size, size))):
         x = (ijk[0] + 0.51) * scale
         y = (ijk[1] + 0.51) * scale
         theta = ti.atan2(y, x)
@@ -46,10 +46,9 @@ def flower8(offset, color, size, num, f1_exp, f1_size):
         r2 *= r2
         if(r < r2):
             zoff = ti.round(r**f1_exp*f1_size*size)
-            x2 = offset[0] + ijk[0]
-            y2 = offset[1] + ijk[1]
-            z2 = offset[2] + zoff
-            scene.set_voxel(ivec3(x2, z2, y2), 1, color)
+            z = ijk[2] + 0.51
+            if(ti.abs(z - zoff) < 1.0):
+                scene.set_voxel(ijk + offset + 0.51, 1, color)
 
 @ti.kernel
 def initialize_voxels():
@@ -65,7 +64,6 @@ def initialize_voxels():
     flower8(offset_f8, c3_f8 * 0.6 + c2_f8, 15, 10, 1.3, 0.8)
     flower8(offset_f8, c3_f8 * 0.8 + c2_f8, 12, 12, 1.1, 1.0)
     flower8(offset_f8, c3_f8 * 1.0 + c2_f8, 10, 20, 1.0, 1.5)
-
 
 initialize_voxels()
 

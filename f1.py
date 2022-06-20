@@ -4,7 +4,7 @@ from taichi.math import *
 
 # config
 exposure = 2
-floor = -35
+floor = -40
 
 scene = Scene(exposure=exposure)
 scene.set_floor(floor/64.0, (1.0, 1.0, 1.0)) # position, color

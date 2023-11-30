@@ -2,7 +2,7 @@
 
 ## 解析
 
-+ [Blog](https://banbao991.github.io/2022/06/19/CG/Algorithm/taichi-flower/)
++ [Blog](https://banbao991.github.io/2022/06/19/nothing/taichi-flower/)
 
 
 
